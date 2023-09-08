@@ -10,3 +10,6 @@ data class ErrorResponse (val message: String ) {
         val BAD_REQUEST = ErrorResponse("Bad request")
     }
 }
+
+class PlayerNotFoundException(message: String) : Exception(message)
+class DatabaseUpdateException(message: String) : Exception(message)
