@@ -9,6 +9,9 @@ import org.litote.kmongo.*
 interface PlayerRepository {
     fun createPlayer(player: Player): Id<Player>?
     fun updatePlayerScore(pseudo: String, score: Int): UpdateResult?
+    fun getAllPlayers(): List<Player>?
+    fun getPlayerByPseudo(pseudo: String): Player?
+    fun deleteAllPlayers()
 }
 
 

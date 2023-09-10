@@ -11,3 +11,10 @@ data class PlayerDto (
 data class UpdatePlayerDto (
  var score: Int,
 )
+
+@Serializable
+data class PlayerData(
+ val pseudo: String,
+ val score: Int,
+ val rank: Int
+)

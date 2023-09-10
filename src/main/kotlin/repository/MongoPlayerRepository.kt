@@ -27,4 +27,18 @@ class MongoPlayerRepository : PlayerRepository {
             throw PlayerNotFoundException("Joueur avec le pseudo $pseudo non trouvé")
         }
     }
+     override fun getAllPlayers(): List<Player> =
+        collection.find()
+            .toList()
+
+    override fun getPlayerByPseudo(pseudo: String): Player? =
+        collection.findOne(Player::pseudo eq pseudo)
+
+    override fun deleteAllPlayers() {
+        try {
+            collection.deleteMany(Player::pseudo exists true)
+        } catch (e: Exception) {
+            throw DatabaseUpdateException("Erreur lors de la suppression de la base de données")
+        }
+    }
 }
