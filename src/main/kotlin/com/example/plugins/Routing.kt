@@ -14,20 +14,17 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import model.Player
 import org.koin.java.KoinJavaComponent.inject
-import repository.PlayerRepository
 import service.PlayerService
 
 fun Application.configureRouting() {
-    val playerRepository :  PlayerRepository by inject(PlayerRepository::class.java)
     val playerService : PlayerService by inject(PlayerService::class.java)
 
     routing {
-
         route("/player"){
             post {
                 val request = call.receive<PlayerDto>()
                 val player = request.toPlayer()
-                playerRepository.createPlayer(player)?.let{
+                playerService.createPlayer(player)?.let{
                     userid -> call.response.headers.append("Header-Id-Player", userid.toString())
                     call.respond(HttpStatusCode.Created)
                 } ?: call.respond(HttpStatusCode.BadRequest, ErrorResponse.BAD_REQUEST)
@@ -38,7 +35,7 @@ fun Application.configureRouting() {
                 val pseudo = call.parameters["pseudo"] ?: return@patch call.respond(HttpStatusCode.BadRequest, ErrorResponse.BAD_REQUEST)
                 val playerUpdateDto = call.receive<UpdatePlayerDto>()
                 try {
-                    playerRepository.updatePlayerScore(pseudo, playerUpdateDto.score)
+                    playerService.updatePlayerScore(pseudo, playerUpdateDto.score)
                     call.respondText("Score du joueur mis à jour avec succès")
                 } catch (e: PlayerNotFoundException) {
                     call.respond(HttpStatusCode.NotFound, e.message ?: "Joueur non trouvé")
@@ -49,7 +46,7 @@ fun Application.configureRouting() {
         }
         route("/players"){
             get {
-                val players = playerRepository.getAllPlayers()?.map(Player::toDto)
+                val players = playerService.getAllPlayers()?.map(Player::toDto)
                 if (players != null) {
                     call.respond(players)
                 } else {
