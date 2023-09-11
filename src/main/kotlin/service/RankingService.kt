@@ -13,10 +13,10 @@ class RankingService() {
         if (sortedPlayers != null) {
             for ((index, player) in sortedPlayers.withIndex()) {
                 if (player.pseudo == pseudo) {
-                    return index + 1 // Classement basé sur l'index dans la liste triée
+                    return index + 1
                 }
             }
         }
-        return null // Le joueur n'a pas été trouvé
+        return null
     }
 }
