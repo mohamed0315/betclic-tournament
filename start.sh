@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Définition de la variable d'environnement MONGODB_URI
-export MONGODB_URI="mongodb+srv://mabouyaaqoub:mabouyaaqoub@cluster99.cpis9kb.mongodb.net/?retryWrites=true&w=majority"
+export MONGODB_URI="mongodb://localhost:27017/betclic-tournament"
 
 # Nom du fichier JAR généré
 JAR_FILE="build/libs/betclic-tournament-all.jar"
