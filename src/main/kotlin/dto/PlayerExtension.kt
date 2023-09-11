@@ -10,6 +10,5 @@ fun Player.toDto() : PlayerDto =
 fun PlayerDto.toPlayer(): Player =
     Player(
         pseudo = this.pseudo,
-        score = 0,
-        rank = 0,
+        score = 0
     )

@@ -6,8 +6,9 @@ import exception.PlayerNotFoundException
 import model.Player
 import org.litote.kmongo.*
 
-class MongoPlayerRepository : PlayerRepository {
-    private val client = KMongo.createClient("mongodb+srv://mabouyaaqoub:mabouyaaqoub@cluster99.cpis9kb.mongodb.net/?retryWrites=true&w=majority")
+class MongoPlayerRepository : PlayerRepository  {
+    private val uri = System.getenv("MONGODB_URI")
+    private val client = KMongo.createClient(uri)
     private val database = client.getDatabase("players")
     private val collection = database.getCollection<Player>()
 
@@ -30,10 +31,8 @@ class MongoPlayerRepository : PlayerRepository {
      override fun getAllPlayers(): List<Player> =
         collection.find()
             .toList()
-
     override fun getPlayerByPseudo(pseudo: String): Player? =
         collection.findOne(Player::pseudo eq pseudo)
-
     override fun deleteAllPlayers() {
         try {
             collection.deleteMany(Player::pseudo exists true)

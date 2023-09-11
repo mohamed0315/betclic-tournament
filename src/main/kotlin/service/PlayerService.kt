@@ -3,10 +3,15 @@ package service
 import dto.PlayerData
 import exception.PlayerNotFoundException
 import model.Player
+import org.koin.java.KoinJavaComponent.inject
 import org.litote.kmongo.Id
 import repository.PlayerRepository
 
-class PlayerService (private val playerRepository: PlayerRepository, private val rankingService: RankingService) {
+class PlayerService () {
+
+    private val playerRepository: PlayerRepository by inject(PlayerRepository::class.java)
+    private val rankingService: RankingService by inject(RankingService::class.java)
+
     fun createPlayer(player: Player): Id<Player>? {
         return playerRepository.createPlayer(player)
     }
@@ -19,7 +24,7 @@ class PlayerService (private val playerRepository: PlayerRepository, private val
     fun getPlayerData(pseudo: String): PlayerData? {
         val player = playerRepository.getPlayerByPseudo(pseudo)
         return if (player != null) {
-            val rank = rankingService.getPlayerRank(player.pseudo) // Calcul du classement
+            val rank = rankingService.getPlayerRank(player.pseudo)
             rank?.let { PlayerData(player.pseudo, player.score, it) }
 
         } else {

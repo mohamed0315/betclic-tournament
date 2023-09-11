@@ -4,18 +4,17 @@ import repository.MongoPlayerRepository
 import repository.PlayerRepository
 import service.RankingService
 import org.koin.dsl.module
-import org.koin.core.module.Module
 import service.PlayerService
 
-val playerRepositoryModule = module {
+val PlayerRepositoryModule = module {
     single<PlayerRepository> {
         MongoPlayerRepository()
     }
-    single {
-        PlayerService(get(), get())
+    single<PlayerService> {
+        PlayerService()
     }
-    single {
-        RankingService(get())
+    single<RankingService> {
+        RankingService()
     }
 
 }

@@ -6,6 +6,8 @@ plugins {
     kotlin("jvm") version "1.9.10"
     id("io.ktor.plugin") version "2.3.4"
     id("org.jetbrains.kotlin.plugin.serialization") version "1.9.10"
+    id("com.github.johnrengelman.shadow") version "7.0.0"
+
 }
 
 group = "com.example"
@@ -29,7 +31,9 @@ dependencies {
     implementation("io.ktor:ktor-server-netty-jvm")
     implementation("org.litote.kmongo:kmongo:4.10.0")
     implementation("io.insert-koin:koin-core:3.2.0")
+    implementation("io.insert-koin:koin-ktor:3.2.0")
     implementation("ch.qos.logback:logback-classic:$logback_version")
     testImplementation("io.ktor:ktor-server-tests-jvm")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
 }
+

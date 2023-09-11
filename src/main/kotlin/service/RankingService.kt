@@ -1,21 +1,11 @@
 package service
 
+import org.koin.java.KoinJavaComponent.inject
 import repository.PlayerRepository
 
-class RankingService(private val playerRepository: PlayerRepository) {
-    fun calculateTournamentRank() {
-         //Logique de calcul du classement
-        val allPlayers = playerRepository.getAllPlayers()
+class RankingService() {
 
-        val sortedPlayers = allPlayers?.sortedByDescending { it.score }
-
-        sortedPlayers?.forEachIndexed { index, player ->
-            player.rank = index + 1
-            // Mettre à jour le classement dans la source de données
-            playerRepository.updatePlayerScore(player.pseudo, player.score)
-        }
-    }
-
+    private val playerRepository: PlayerRepository by inject(PlayerRepository::class.java)
     fun getPlayerRank(pseudo: String): Int? {
         val allPlayers = playerRepository.getAllPlayers()
         val sortedPlayers = allPlayers?.sortedByDescending { it.score }

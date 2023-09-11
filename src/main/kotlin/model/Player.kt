@@ -8,5 +8,4 @@ data class Player (
     val id: Id<Player>? = null,
     var pseudo: String,
     var score: Int,
-    var rank: Int
 )
