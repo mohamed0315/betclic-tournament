@@ -1,9 +1,10 @@
 #!/bin/bash
 
-# Nom du fichier JAR généré
+# Définition de la variable d'environnement MONGODB_URI
 export MONGODB_URI="mongodb+srv://mabouyaaqoub:mabouyaaqoub@cluster99.cpis9kb.mongodb.net/?retryWrites=true&w=majority"
 
-JAR_FILE="build/libs/betclic-tournament-all.jar"  # Remplacez par le nom de votre fichier JAR
+# Nom du fichier JAR généré
+JAR_FILE="build/libs/betclic-tournament-all.jar"
 
 # Vérifie si le fichier JAR existe
 if [ ! -f "$JAR_FILE" ]; then
@@ -11,5 +12,5 @@ if [ ! -f "$JAR_FILE" ]; then
   exit 1
 fi
 
-# Exécute le JAR
+# Exécution du JAR
 java -DMONGODB_URI="$MONGODB_URI" -jar "$JAR_FILE"
